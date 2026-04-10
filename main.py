@@ -21,16 +21,35 @@ from core.loader import load_site_profile, load_csv, filter_by_year
 from core.matcher import load_medicine_dict, apply_judgement
 from core.exporter import export_xlsx
 
+SITE_PROFILES_DIR = PROJECT_ROOT / "config" / "site_profiles"
+
+
+def list_available_sites() -> list[tuple[str, str]]:
+    """利用可能なサイトプロファイル一覧を (site_key, display_name) で返す。
+
+    ファイル名が `_` で始まるもの（テンプレート等）は除外する。
+    """
+    sites = []
+    for path in sorted(SITE_PROFILES_DIR.glob("*.json")):
+        if path.stem.startswith("_"):
+            continue
+        try:
+            profile = load_site_profile(path)
+            display_name = profile.get("display_name", path.stem)
+        except Exception:
+            display_name = path.stem
+        sites.append((path.stem, display_name))
+    return sites
+
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description="セルフメディケーション税制 対象医薬品抽出ツール",
         formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog="例: python main.py --input 注文履歴.csv --year 2025",
+        epilog="例: python main.py --input 注文履歴.csv --site rakuten --year 2025",
     )
     parser.add_argument(
         "--input", "-i",
-        required=True,
         type=Path,
         help="入力CSVファイルのパス",
     )
@@ -51,6 +70,11 @@ def build_parser() -> argparse.ArgumentParser:
         default=Path("selfmed_result.xlsx"),
         help="出力xlsxファイルのパス（デフォルト: selfmed_result.xlsx）",
     )
+    parser.add_argument(
+        "--list-sites",
+        action="store_true",
+        help="対応しているECサイト一覧を表示して終了",
+    )
     return parser
 
 
@@ -58,16 +82,27 @@ def main(args: list[str] | None = None) -> int:
     parser = build_parser()
     opts = parser.parse_args(args)
 
+    # --- サイト一覧表示 ---
+    if opts.list_sites:
+        print("対応ECサイト一覧:")
+        for site_key, display_name in list_available_sites():
+            print(f"  {site_key:<20} {display_name}")
+        return 0
+
+    # --- 入力ファイル必須チェック ---
+    if opts.input is None:
+        parser.error("--input は必須です（--list-sites 以外の場合）")
+
     # --- 入力ファイルの存在チェック ---
     if not opts.input.exists():
         print(f"エラー: 入力ファイルが見つかりません: {opts.input}", file=sys.stderr)
         return 1
 
     # --- サイトプロファイルの読み込み ---
-    profile_path = PROJECT_ROOT / "config" / "site_profiles" / f"{opts.site}.json"
+    profile_path = SITE_PROFILES_DIR / f"{opts.site}.json"
     if not profile_path.exists():
         print(f"エラー: サイトプロファイルが見つかりません: {profile_path}", file=sys.stderr)
-        print(f"  対応サイト: {', '.join(p.stem for p in (PROJECT_ROOT / 'config' / 'site_profiles').glob('*.json'))}", file=sys.stderr)
+        print("  対応サイト一覧は `python main.py --list-sites` で確認できます。", file=sys.stderr)
         return 1
 
     profile = load_site_profile(profile_path)

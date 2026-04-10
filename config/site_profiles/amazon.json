@@ -1,4 +1,6 @@
 {
+  "_comment": "Amazon.co.jp 注文履歴CSV用プロファイル（Chrome拡張「Amazon注文履歴フィルタ」等を想定）。実際のCSVカラム名に合わせて columns を調整してください。",
+  "display_name": "Amazon.co.jp",
   "encoding": "utf-8",
   "columns": {
     "order_date": "注文日",

@@ -1,0 +1,13 @@
+{
+  "_comment": "マツモトキヨシオンラインストアの購入履歴CSV用プロファイル。ドラッグストア系のため医薬品判定の精度が高い。実際のCSVカラム名に合わせて columns を調整してください。",
+  "display_name": "マツモトキヨシ",
+  "encoding": "utf-8",
+  "columns": {
+    "order_date": "注文日",
+    "product_name": "商品名",
+    "unit_price": "単価",
+    "quantity": "数量"
+  },
+  "default_seller": "マツモトキヨシ",
+  "date_format": "%Y-%m-%d"
+}

@@ -1,0 +1,14 @@
+{
+  "_comment": "新しいECサイト対応用テンプレート。このファイルをコピーしてサイト名.json として保存し、columns を実際のCSVカラム名に合わせてください。_comment 行と display_name はプログラムの動作に影響しません。",
+  "display_name": "サイト表示名（例: 〇〇オンラインストア）",
+  "encoding": "utf-8",
+  "columns": {
+    "order_date": "CSV上の注文日カラム名",
+    "product_name": "CSV上の商品名カラム名",
+    "unit_price": "CSV上の金額カラム名",
+    "quantity": "CSV上の数量カラム名",
+    "seller": "CSV上の販売元カラム名（任意。無ければこの行ごと削除）"
+  },
+  "default_seller": "支払先として出力される名称",
+  "date_format": "%Y-%m-%d"
+}

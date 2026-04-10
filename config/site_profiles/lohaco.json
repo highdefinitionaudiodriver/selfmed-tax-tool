@@ -1,0 +1,14 @@
+{
+  "_comment": "LOHACO (ASKUL) の購入履歴CSV用プロファイル。OTC医薬品の取り扱いが多い。実際のCSVカラム名に合わせて columns を調整してください。",
+  "display_name": "LOHACO",
+  "encoding": "utf-8",
+  "columns": {
+    "order_date": "注文日",
+    "product_name": "商品名",
+    "unit_price": "商品価格",
+    "quantity": "数量",
+    "seller": "出荷元"
+  },
+  "default_seller": "LOHACO",
+  "date_format": "%Y-%m-%d"
+}
