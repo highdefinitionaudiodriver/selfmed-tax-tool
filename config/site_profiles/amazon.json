@@ -1,0 +1,12 @@
+{
+  "encoding": "utf-8",
+  "columns": {
+    "order_date": "注文日",
+    "product_name": "商品名",
+    "unit_price": "商品小計",
+    "quantity": "数量",
+    "seller": "販売元"
+  },
+  "default_seller": "Amazon",
+  "date_format": "%Y-%m-%d"
+}
