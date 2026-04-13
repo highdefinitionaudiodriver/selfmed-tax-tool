@@ -1,0 +1,14 @@
+{
+  "_comment": "楽天市場の購入履歴CSV用プロファイル。実際のCSVカラム名に合わせて columns を調整してください。",
+  "display_name": "楽天市場",
+  "encoding": "utf-8",
+  "columns": {
+    "order_date": "注文日",
+    "product_name": "商品名",
+    "unit_price": "商品価格",
+    "quantity": "数量",
+    "seller": "店舗名"
+  },
+  "default_seller": "楽天市場",
+  "date_format": "%Y-%m-%d"
+}

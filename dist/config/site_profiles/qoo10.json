@@ -1,0 +1,14 @@
+{
+  "_comment": "Qoo10 の購入履歴CSV用プロファイル。実際のCSVカラム名に合わせて columns を調整してください。",
+  "display_name": "Qoo10",
+  "encoding": "utf-8",
+  "columns": {
+    "order_date": "注文日",
+    "product_name": "商品名",
+    "unit_price": "単価",
+    "quantity": "個数",
+    "seller": "ショップ名"
+  },
+  "default_seller": "Qoo10",
+  "date_format": "%Y-%m-%d"
+}

@@ -12,8 +12,13 @@ import argparse
 import sys
 from pathlib import Path
 
-# プロジェクトルートを基準にパスを解決
-PROJECT_ROOT = Path(__file__).resolve().parent
+# プロジェクトルート（config フォルダの親）を解決
+# - PyInstaller フリーズ実行時: sys.executable の親ディレクトリ
+# - 通常実行時: このファイルの親ディレクトリ
+if getattr(sys, "frozen", False):
+    PROJECT_ROOT = Path(sys.executable).resolve().parent
+else:
+    PROJECT_ROOT = Path(__file__).resolve().parent
 
 sys.path.insert(0, str(PROJECT_ROOT))
 

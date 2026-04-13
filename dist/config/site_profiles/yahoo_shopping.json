@@ -1,0 +1,14 @@
+{
+  "_comment": "Yahoo!ショッピングの購入履歴CSV用プロファイル。実際のCSVカラム名に合わせて columns を調整してください。",
+  "display_name": "Yahoo!ショッピング",
+  "encoding": "utf-8",
+  "columns": {
+    "order_date": "注文日時",
+    "product_name": "商品名",
+    "unit_price": "商品価格",
+    "quantity": "数量",
+    "seller": "ストア名"
+  },
+  "default_seller": "Yahoo!ショッピング",
+  "date_format": "%Y-%m-%d"
+}

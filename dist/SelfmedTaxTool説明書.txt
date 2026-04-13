@@ -1,0 +1,328 @@
+============================================================
+  SelfmedTaxTool v1.0.0 説明書
+  セルフメディケーション税制 明細抽出ツール（CLI）
+============================================================
+
+■ ソフト名
+  SelfmedTaxTool（セルフメドタックスツール）
+
+■ バージョン
+  1.0.0
+
+■ 作者名
+  highdefinitionaudiodriver
+
+■ 連絡先
+  GitHub: https://github.com/highdefinitionaudiodriver
+  リポジトリ: https://github.com/highdefinitionaudiodriver/selfmed-tax-tool
+  バグ報告・機能要望: highdefinitionaudiodriver@gmail.com
+
+■ 動作環境
+  対応OS: Windows 10 / 11（64bit推奨）
+          macOS, Linux（ソースから実行可）
+  必要メモリ: 256MB以上
+  ディスク容量: 約40MB（EXE単体）
+  ランタイム: 不要（EXE版は同梱済み。ソース版はPython 3.10以上）
+  ネットワーク: 不要（完全オフラインで動作）
+
+■ ソフト種別
+  フリーソフト（MITライセンス）
+
+■ カテゴリ
+  ビジネス > 確定申告・税務支援ツール
+
+■ 概要
+  SelfmedTaxToolは、国内主要通販サイトからダウンロードした
+  購入履歴CSVを読み込み、セルフメディケーション税制の対象と
+  なる市販薬（OTC医薬品）のみを自動抽出して、確定申告の
+  明細書作成に必要な情報をExcel（xlsx）形式で出力する
+  コマンドラインツールです。
+
+  購入履歴という極めてプライベートなデータを扱うため、
+  外部APIへのデータ送信（LLMへの問い合わせ等）を一切行わず、
+  すべての処理をローカル環境内で完結させる設計としています。
+  完全オフラインで動作するため、インターネット接続のない
+  環境でも安心して利用できます。
+
+  判定結果は「対象 / 要確認 / 対象外」の3段階で分類され、
+  「要確認」の商品は出力Excelで黄色にハイライトされるため、
+  最終的な人間によるチェック（Human-in-the-loop）を前提
+  とした安全な運用が可能です。
+
+■ 主な機能
+
+  【CSV読み込み・正規化】
+  ・国内主要13通販サイトのCSVフォーマットに標準対応
+  ・サイトごとのカラムマッピングを外部JSONで管理
+  ・UTF-8 / Shift_JIS 等の複数エンコーディング対応
+  ・カンマ区切り金額（"1,280"）の自動パース
+  ・不正な日付・金額行の自動スキップ
+  ・年度フィルタ機能（確定申告対象年のみ抽出）
+
+  【対応通販サイト（13サイト）】
+  総合通販系:
+  ・Amazon.co.jp
+  ・楽天市場
+  ・Yahoo!ショッピング（PayPayモール統合後含む）
+  ・LOHACO (ASKUL)
+  ・au PAY マーケット（旧Wowma）
+  ・ヨドバシ.com
+  ・Qoo10
+
+  ドラッグストアEC系:
+  ・マツモトキヨシオンラインストア
+  ・ウエルシアドットコム
+  ・サンドラッグe-shop
+  ・ツルハドラッグe-shop
+  ・ココカラファイン
+  ・スギ薬局オンラインショップ
+
+  ※各サイトのCSVカラム名は標準的な命名を前提としています。
+    実際のCSVヘッダーと異なる場合は対応JSONを編集してください。
+
+  【医薬品判定】
+  ・3段階判定（対象 / 要確認 / 対象外）
+  ・50種以上の主要OTC医薬品ブランドを標準辞書として同梱
+  ・除外キーワード機能（「ルナ」「キッズ」等）
+  ・NFKC正規化による商品名の揺らぎ吸収
+    （全角英数→半角、スペース統一、大文字小文字統一）
+  ・部分一致による柔軟なブランド検出
+
+  【Excel出力】
+  ・国税庁セルフメディケーション税制明細書に
+    転記しやすい項目構成
+    （支払先/医薬品名/金額/購入日/判定）
+  ・「要確認」行の黄色ハイライト（#FFF2CC）
+  ・合計金額の自動集計
+  ・列幅・書式・数値フォーマットの自動設定
+  ・xlsx形式での出力（文字化け・指数表記問題なし）
+
+  【拡張性】
+  ・サイトプロファイル追加はJSON 1ファイルのみで対応
+  ・医薬品辞書の追加・編集もJSONのみで完結
+  ・Pythonコードの変更は一切不要
+  ・新規サイト追加用のテンプレート同梱
+
+  【セキュリティ】
+  ・外部API通信なし（LLMへのデータ送信等を一切行わない）
+  ・完全ローカル処理
+  ・ネットワーク通信ゼロ
+  ・依存ライブラリは pandas / openpyxl のみ
+
+  【CLIインターフェース】
+  ・--list-sites による対応サイト一覧表示
+  ・--year による年度フィルタ
+  ・--site によるサイト切替
+  ・ヘッドレス実行によるバッチ処理対応
+
+■ 対応言語（UI）
+  日本語
+
+■ インストール方法
+
+  【EXE版（推奨・簡単）】
+  1. SelfmedTaxTool.exe および config フォルダをダウンロード
+  2. 任意のフォルダに配置（インストーラ不要）
+  3. コマンドプロンプトから起動
+  ※ Pythonやその他ランタイムのインストールは不要です。
+  ※ config フォルダは exe と同じ階層に配置してください。
+
+  【ソース版】
+  1. Python 3.10 以上をインストール
+  2. コマンドプロンプト（またはターミナル）で以下を実行:
+     git clone https://github.com/highdefinitionaudiodriver/selfmed-tax-tool.git
+     cd selfmed-tax-tool
+     pip install -r requirements.txt
+     python main.py --help
+
+■ 使い方
+
+  【事前準備】
+  1. 各通販サイトから購入履歴CSVをダウンロード
+     （Amazonの場合はChrome拡張「Amazon注文履歴フィルタ」等を使用）
+  2. SelfmedTaxTool.exe と同じフォルダに配置
+
+  【基本的な使い方】
+
+  対応サイト一覧を表示:
+    SelfmedTaxTool.exe --list-sites
+
+  Amazonの注文履歴から2025年分を抽出:
+    SelfmedTaxTool.exe -i amazon_history.csv -y 2025
+
+  楽天市場の場合:
+    SelfmedTaxTool.exe -i rakuten_history.csv -s rakuten -y 2025
+
+  出力ファイル名を指定:
+    SelfmedTaxTool.exe -i history.csv -y 2025 -o 令和7年分.xlsx
+
+  【CLIオプション】
+    -i, --input      : 入力CSVファイルのパス（必須）
+    -s, --site       : ECサイト種別（デフォルト: amazon）
+                       指定可能な値:
+                         amazon, rakuten, yahoo_shopping,
+                         lohaco, aupay_market, yodobashi, qoo10,
+                         matsukiyo, welcia, sundrug, tsuruha,
+                         kokokara, sugi
+    -y, --year       : 対象年でフィルタ（例: 2025）
+    -o, --output     : 出力xlsxファイルのパス
+                       （デフォルト: selfmed_result.xlsx）
+    --list-sites     : 対応サイト一覧を表示して終了
+    -h, --help       : ヘルプを表示
+
+  【実行例】
+
+    > SelfmedTaxTool.exe -i rakuten_2025.csv -s rakuten -y 2025
+    読み込み中: rakuten_2025.csv
+      → 128 件の注文を読み込みました
+      → 2025年の注文: 89 件
+      → 対象: 12 件 / 要確認: 2 件
+
+    出力完了: selfmed_result.xlsx
+    合計金額: 15,240円
+
+    ※ 「要確認」が 2 件あります。
+       出力ファイルの黄色行を確認してください。
+
+  【出力結果の使い方】
+  1. 出力された selfmed_result.xlsx をExcelで開く
+  2. 黄色ハイライトされた「要確認」行の商品を目視確認
+     （税制対象かどうかを商品パッケージで最終判断）
+  3. 対象確定分を国税庁のセルフメディケーション税制
+     明細書フォーマットに転記
+  4. 確定申告書類に添付
+
+■ カスタマイズ
+
+  【対象医薬品ブランドの追加】
+  config/medicine_dict/brands.json をテキストエディタで編集:
+
+    {
+      "brands": [
+        "ロキソニンS",
+        "パブロンゴールドA",
+        "追加したい新ブランド"
+      ],
+      "exclude_keywords": [
+        "ルナ", "キッズ", "ジュニア"
+      ]
+    }
+
+  【CSVカラム名のマッピング変更】
+  config/site_profiles/<サイトキー>.json を編集:
+
+    {
+      "encoding": "utf-8",
+      "columns": {
+        "order_date": "実際の日付カラム名",
+        "product_name": "実際の商品名カラム名",
+        "unit_price": "実際の金額カラム名"
+      }
+    }
+
+  【新規サイトの追加】
+  config/site_profiles/_template.json をコピーして
+  <新サイト名>.json として保存し、columns を編集するだけです。
+
+■ ファイル構成（EXE版）
+  SelfmedTaxTool.exe          - 実行ファイル
+  config/                     - 設定フォルダ（編集可能）
+    site_profiles/            - サイトプロファイル
+      amazon.json             - Amazon設定
+      rakuten.json            - 楽天市場設定
+      yahoo_shopping.json     - Yahoo!ショッピング設定
+      lohaco.json             - LOHACO設定
+      aupay_market.json       - au PAY マーケット設定
+      yodobashi.json          - ヨドバシ.com設定
+      qoo10.json              - Qoo10設定
+      matsukiyo.json          - マツモトキヨシ設定
+      welcia.json             - ウエルシア設定
+      sundrug.json            - サンドラッグ設定
+      tsuruha.json            - ツルハドラッグ設定
+      kokokara.json           - ココカラファイン設定
+      sugi.json               - スギ薬局設定
+      _template.json          - 新規サイト追加用テンプレート
+    medicine_dict/
+      brands.json             - 対象医薬品ブランド辞書
+  SelfmedTaxTool説明書.txt    - 本ドキュメント
+
+■ ファイル構成（ソース版）
+  main.py                     - CLIエントリポイント
+  requirements.txt            - 依存ライブラリ定義
+  README.md                   - プロジェクトドキュメント
+  config/                     - 設定フォルダ
+    site_profiles/            - サイトプロファイル（14ファイル）
+    medicine_dict/
+      brands.json             - 対象医薬品ブランド辞書
+  core/
+    __init__.py
+    loader.py                 - CSV読み込み・正規化
+    matcher.py                - 3段階判定ロジック
+    exporter.py               - xlsx出力（書式付き）
+  tests/                      - テストスイート（30件）
+    test_loader.py
+    test_matcher.py
+    test_exporter.py
+    fixtures/
+      amazon_sample.csv
+  LICENSE                     - MITライセンス
+
+■ アンインストール方法
+  フォルダごと削除してください。
+  レジストリへの書き込みは一切行いません。
+  個人情報（購入履歴CSV）は削除前にご確認ください。
+
+■ プライバシーとセキュリティ
+  本ツールは以下の方針で設計されています:
+
+  ・外部API通信: 一切なし
+    LLMへのデータ送信や外部サーバーへの問い合わせは
+    行いません。
+  ・データ保存: すべてローカルファイルシステムのみ
+    入力CSVと出力xlsxはユーザーの端末内にのみ存在します。
+  ・ネットワーク: ツール実行中、ネットワーク通信は
+    発生しません。オフライン環境でも完全に動作します。
+  ・依存ライブラリ: pandas / openpyxl のみ
+    どちらも純粋なデータ処理ライブラリです。
+
+■ 免責事項
+  ・本ツールが出力する判定結果はあくまで補助であり、
+    最終的なセルフメディケーション税制対象かどうかの
+    判断は、厚生労働省の公式対象品目リストおよび
+    商品パッケージの「セルフメディケーション税控除対象」
+    マークをご確認ください。
+  ・各通販サイトのCSV仕様は予告なく変更される可能性が
+    あります。デフォルトプロファイルが実際のCSVと
+    合わない場合は config/site_profiles/ 配下のJSONを
+    編集してください。
+  ・確定申告書類の作成責任は利用者自身にあります。
+  ・本ソフトウェアの使用により生じたいかなる損害に
+    対しても、作者は一切の責任を負いません。
+    自己責任にてご利用ください。
+
+■ 著作権・ライセンス
+  Copyright (c) 2026 highdefinitionaudiodriver
+  MITライセンスに基づき自由に使用・改変・再配布できます。
+  詳細はLICENSEファイルを参照してください。
+
+■ 変更履歴
+
+  v1.0.0 (2026-04-10)
+    - 初版リリース
+    - CLI対応（argparse）
+    - 国内主要13通販サイトのサイトプロファイル同梱
+      （Amazon, 楽天, Yahoo!, LOHACO, au PAY,
+        ヨドバシ, Qoo10, マツキヨ, ウエルシア,
+        サンドラッグ, ツルハ, ココカラ, スギ薬局）
+    - 3段階判定ロジック（対象/要確認/対象外）
+    - 50種以上の主要OTC医薬品ブランド辞書を同梱
+    - 除外キーワード機能
+    - NFKC正規化による商品名揺らぎ吸収
+    - 年度フィルタ機能
+    - xlsx出力（要確認行ハイライト、合計行、書式付き）
+    - --list-sites オプション
+    - 完全ローカル処理（外部通信ゼロ）
+    - 30件のユニットテスト
+    - PyInstaller によるEXE生成対応
+
+============================================================
