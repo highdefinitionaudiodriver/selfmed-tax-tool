@@ -16,7 +16,9 @@ from openpyxl.utils import get_column_letter
 OUTPUT_COLUMNS = {
     "seller": "支払先の名称",
     "product_name": "医薬品の名称",
-    "unit_price": "支払った金額",
+    "unit_price": "単価",
+    "quantity": "数量",
+    "paid_amount": "支払った金額",
     "order_date": "購入日",
     "判定": "判定",
 }
@@ -67,8 +69,8 @@ def export_xlsx(df: pd.DataFrame, output_path: Path) -> Path:
             # 日付をフォーマット
             if col_name == "order_date" and pd.notna(value):
                 value = value.strftime("%Y-%m-%d")
-            # 金額を整数化
-            if col_name == "unit_price" and pd.notna(value):
+            # 金額・数量を整数化
+            if col_name in ("unit_price", "paid_amount", "quantity") and pd.notna(value):
                 value = int(value)
 
             cell = ws.cell(row=row_idx, column=col_idx, value=value)
@@ -81,17 +83,17 @@ def export_xlsx(df: pd.DataFrame, output_path: Path) -> Path:
     # --- 合計行 ---
     data_end_row = len(df) + 1
     total_row = data_end_row + 1
-    price_col = internal_cols.index("unit_price") + 1
+    paid_col = internal_cols.index("paid_amount") + 1
 
     # 「合計」ラベル
-    label_cell = ws.cell(row=total_row, column=price_col - 1, value="合計")
+    label_cell = ws.cell(row=total_row, column=paid_col - 1, value="合計")
     label_cell.font = total_font
     label_cell.alignment = Alignment(horizontal="right")
     label_cell.border = thin_border
 
-    # 合計金額
-    total_amount = int(df["unit_price"].sum()) if len(df) > 0 else 0
-    total_cell = ws.cell(row=total_row, column=price_col, value=total_amount)
+    # 合計金額（支払った金額 = unit_price × quantity の合計）
+    total_amount = int(df["paid_amount"].sum()) if len(df) > 0 else 0
+    total_cell = ws.cell(row=total_row, column=paid_col, value=total_amount)
     total_cell.font = total_font
     total_cell.border = thin_border
 
@@ -99,6 +101,8 @@ def export_xlsx(df: pd.DataFrame, output_path: Path) -> Path:
     column_widths = {
         "支払先の名称": 20,
         "医薬品の名称": 35,
+        "単価": 12,
+        "数量": 8,
         "支払った金額": 15,
         "購入日": 14,
         "判定": 10,
@@ -108,8 +112,10 @@ def export_xlsx(df: pd.DataFrame, output_path: Path) -> Path:
         ws.column_dimensions[col_letter].width = column_widths.get(header, 15)
 
     # --- 金額列の表示形式 ---
+    unit_price_col = internal_cols.index("unit_price") + 1
     for row_idx in range(2, total_row + 1):
-        ws.cell(row=row_idx, column=price_col).number_format = '#,##0'
+        ws.cell(row=row_idx, column=unit_price_col).number_format = '#,##0'
+        ws.cell(row=row_idx, column=paid_col).number_format = '#,##0'
 
     wb.save(output_path)
     return output_path

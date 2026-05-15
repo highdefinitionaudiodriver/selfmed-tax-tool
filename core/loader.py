@@ -11,7 +11,7 @@ import pandas as pd
 
 
 # 内部統一カラム名
-UNIFIED_COLUMNS = ["order_date", "product_name", "unit_price", "quantity", "seller"]
+UNIFIED_COLUMNS = ["order_date", "product_name", "unit_price", "quantity", "paid_amount", "seller"]
 
 
 def load_site_profile(profile_path: Path) -> dict:
@@ -71,6 +71,9 @@ def load_csv(csv_path: Path, profile: dict) -> pd.DataFrame:
         errors="coerce",
     )
     df["quantity"] = pd.to_numeric(df["quantity"], errors="coerce").fillna(1).astype(int)
+
+    # 支払った金額 = 単価 × 数量
+    df["paid_amount"] = df["unit_price"] * df["quantity"]
 
     # 必要なカラムだけ残す
     df = df[UNIFIED_COLUMNS].copy()

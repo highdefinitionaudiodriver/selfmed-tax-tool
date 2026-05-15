@@ -41,8 +41,13 @@ class TestLoadCsv:
         assert isinstance(sample_df, pd.DataFrame)
 
     def test_has_unified_columns(self, sample_df):
-        expected = {"order_date", "product_name", "unit_price", "quantity", "seller"}
+        expected = {"order_date", "product_name", "unit_price", "quantity", "paid_amount", "seller"}
         assert set(sample_df.columns) == expected
+
+    def test_paid_amount_equals_unit_price_times_quantity(self, sample_df):
+        # 支払った金額 = 単価 × 数量
+        expected = sample_df["unit_price"] * sample_df["quantity"]
+        assert (sample_df["paid_amount"] == expected).all()
 
     def test_row_count(self, sample_df):
         assert len(sample_df) == 6

@@ -139,7 +139,7 @@ def main(args: list[str] | None = None) -> int:
 
     # --- xlsx出力 ---
     output_path = export_xlsx(df, opts.output)
-    total_amount = int(df["unit_price"].sum())
+    total_amount = int(df["paid_amount"].sum())
     print(f"\n出力完了: {output_path}")
     print(f"合計金額: {total_amount:,}円")
     if review_count > 0:
