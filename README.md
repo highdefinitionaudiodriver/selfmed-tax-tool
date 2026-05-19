@@ -517,6 +517,26 @@ python -m pytest tests/ -v
 
 ---
 
+## 🔗 確定申告セット（兄弟ツール）
+
+本ツールは **3 兄弟ツール + ランチャー** の一部です。組み合わせで確定申告が一気通貫に：
+
+```
+[1] receipt-ocr-tool  ← レシート画像 → CSV
+        ↓
+[2] selfmed-tax-tool  ← このリポジトリ。購入履歴 CSV → 対象医薬品 Excel
+        ↓
+[3] pdf-autofill-cli  ← 明細書 PDF 自動入力
+        ↓
+   税務署提出用 PDF 完成
+```
+
+- 🚀 **[tax-toolkit](https://github.com/highdefinitionaudiodriver/tax-toolkit)** — 上の 3 ステップを **1 つの GUI** で一気通貫実行（Tkinter ウィザード）
+- 📷 [receipt-ocr-tool](https://github.com/highdefinitionaudiodriver/receipt-ocr-tool) — レシート画像 OCR（Tesseract / PaddleOCR 切替対応）
+- 📝 [pdf-autofill-cli](https://github.com/highdefinitionaudiodriver/pdf-autofill-cli) — 医療費控除明細書 PDF 等への自動入力（座標指定 / フォームフィールド）
+
+---
+
 ## 🤝 商用利用・カスタマイズ依頼
 
 - 個人利用は無料（MIT ライセンス）
