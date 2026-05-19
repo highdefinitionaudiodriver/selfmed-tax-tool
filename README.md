@@ -6,7 +6,7 @@
 
 <p align="center">
   通販サイトの購入履歴CSVから、確定申告に必要な<strong>対象医薬品だけ</strong>をExcelに抽出。<br/>
-  完全オフライン動作 &mdash; あなたの購入データは一切外部に送信されません。
+  Amazon・楽天などの市販薬を確定申告用に自動整理。完全オフライン動作で、購入データは一切外部に送信されません。
 </p>
 
 <p align="center">
@@ -24,6 +24,23 @@
   <img src="https://img.shields.io/badge/sites-13%20supported-orange" alt="Sites" />
   <img src="https://img.shields.io/badge/network-zero-critical" alt="No Network" />
 </p>
+
+---
+
+## 🎯 これは何？（30秒で）
+
+- **誰のため**：セルフメディケーション税制（医療費控除の特例）を毎年使っている個人・確定申告の準備をしている家庭
+- **何が解決される**：通販サイトの大量の購入履歴 CSV から、**対象成分含有 OTC 医薬品だけを完全自動で抽出**。手作業で全件レシート照合する手間（年末の数時間）をワンクリックに短縮
+- **なぜ既存ツールではダメか**：会計ソフトの大半はクラウド前提＋年額課金。本ツールは **完全オフライン・購入データ非送信**。Amazon・楽天・LOHACO 等 13 サイトの CSV を直接処理
+- **使う条件**：Python 3.10+（または配布 EXE）／Windows・macOS・Linux
+
+## 💰 想定ユースケース・価格帯
+
+| 用途 | 形態 |
+|---|---|
+| 個人の確定申告利用 | 無料（MIT） |
+| 確定申告セット（Receipt OCR + PDF 自動入力との組合せ） | 個別利用は無料、束ねたパッケージ販売は今後検討 |
+| 税理士事務所・薬局向けカスタマイズ（成分マスタ年次更新等） | 応相談 |
 
 ---
 
@@ -50,6 +67,8 @@
 ## 概要
 
 **Selfmed Tax Tool** は、国内主要通販サイトの購入履歴CSVから **セルフメディケーション税制の対象となるOTC医薬品** のみを自動抽出し、確定申告の明細書に転記しやすい Excel（xlsx）形式で出力する CLI ツールです。
+
+> Windows EXE版なら、Pythonを入れずに「購入履歴CSVを入れる → 対象医薬品と合計金額が出る」だけで使えます。個人の確定申告、家計管理、税理士事務所での事前整理に向いた買い切り型ユーティリティです。
 
 ### なぜこのツールが必要か
 
@@ -495,3 +514,11 @@ python -m pytest tests/ -v
 <p align="center">
   <sub>Built with Python + pandas + openpyxl | Zero network, Zero cloud, 100% local</sub>
 </p>
+
+---
+
+## 🤝 商用利用・カスタマイズ依頼
+
+- 個人利用は無料（MIT ライセンス）
+- 法人導入支援、カスタマイズ、業務テンプレ整備、追加機能開発は応相談
+- 連絡先：highdefinitionaudiodriver@gmail.com
