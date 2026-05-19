@@ -1,0 +1,230 @@
+{
+  "_meta": {
+    "schema_version": "1.0",
+    "data_version": "2026.01",
+    "data_year": 2026,
+    "updated_at": "2026-05-19",
+    "scope": "セルフメディケーション税制（医療費控除の特例）対象 OTC 医薬品",
+    "source_notes": [
+      "厚生労働省: セルフメディケーション税制対象品目一覧（公開資料）",
+      "日本一般用医薬品連合会 公開リスト",
+      "各メーカー公式サイト商品情報",
+      "本マスタは公開情報を作成者が編集したものです"
+    ],
+    "license": "MIT （データ自体は公的情報・公開情報の編集）",
+    "year_subscription_note": "年次更新版（成分追加・新製品追加）は別途有償サブスクリプションを検討（個人向け 想定年¥500、税理士向け 想定年¥2,400）",
+    "calibration_warning": "実際の税制対象品目は毎年微変動します。確定申告時は必ず最新の国税庁/厚生労働省公示と突き合わせてください。"
+  },
+
+  "active_ingredients": [
+    {
+      "name": "ロキソプロフェン",
+      "category": "解熱鎮痛剤",
+      "switch_otc": true,
+      "products": [
+        "ロキソニンS",
+        "ロキソニンSプラス",
+        "ロキソニンSプレミアム",
+        "ロキソニンSクイック"
+      ]
+    },
+    {
+      "name": "イブプロフェン",
+      "category": "解熱鎮痛剤",
+      "switch_otc": false,
+      "products": [
+        "イブクイック頭痛薬DX",
+        "イブA錠EX",
+        "バファリンEX",
+        "バファリンプレミアム",
+        "ナロンエースT",
+        "ナロンLoxy"
+      ]
+    },
+    {
+      "name": "ジクロフェナクナトリウム",
+      "category": "鎮痛消炎外用",
+      "switch_otc": true,
+      "products": [
+        "ボルタレンEXテープ",
+        "ボルタレンACテープ",
+        "フェイタスZαジクサス",
+        "フェイタス5.0"
+      ]
+    },
+    {
+      "name": "アンブロキソール",
+      "category": "去痰",
+      "switch_otc": true,
+      "products": [
+        "ストナアイビージェル"
+      ]
+    },
+    {
+      "name": "総合感冒薬（複合成分）",
+      "category": "総合感冒",
+      "switch_otc": false,
+      "products": [
+        "パブロンゴールドA",
+        "パブロンSゴールドW",
+        "パブロンエースPro",
+        "ベンザブロックIP",
+        "ベンザブロックL",
+        "ベンザブロックLプラス",
+        "新ルルAゴールドDX",
+        "新ルルAゴールドs",
+        "ルルアタックEX",
+        "ルルアタックNX",
+        "エスタックイブファイン",
+        "エスタックイブNT",
+        "コンタック600プラス",
+        "ジキニンIP"
+      ]
+    },
+    {
+      "name": "フェキソフェナジン",
+      "category": "アレルギー用",
+      "switch_otc": true,
+      "products": [
+        "アレグラFX"
+      ]
+    },
+    {
+      "name": "エピナスチン",
+      "category": "アレルギー用",
+      "switch_otc": true,
+      "products": [
+        "アレジオン20"
+      ]
+    },
+    {
+      "name": "ロラタジン",
+      "category": "アレルギー用",
+      "switch_otc": true,
+      "products": [
+        "クラリチンEX"
+      ]
+    },
+    {
+      "name": "セチリジン",
+      "category": "アレルギー用",
+      "switch_otc": true,
+      "products": [
+        "コンタック鼻炎Z"
+      ]
+    },
+    {
+      "name": "ファモチジン",
+      "category": "胃腸薬（H2ブロッカー）",
+      "switch_otc": true,
+      "products": [
+        "ガスター10"
+      ]
+    },
+    {
+      "name": "胃腸薬（複合成分）",
+      "category": "胃腸薬",
+      "switch_otc": false,
+      "products": [
+        "ガストール",
+        "太田胃散A錠",
+        "パンシロンキュアSP",
+        "ビオフェルミン下痢止め"
+      ]
+    },
+    {
+      "name": "ニコチン（禁煙補助）",
+      "category": "禁煙補助",
+      "switch_otc": true,
+      "products": [
+        "ニコレット",
+        "ニコチネルパッチ"
+      ]
+    },
+    {
+      "name": "ミノキシジル",
+      "category": "発毛剤",
+      "switch_otc": true,
+      "products": [
+        "リアップX5プラスネオ",
+        "リアップジェンヌ"
+      ]
+    },
+    {
+      "name": "鎮咳去痰",
+      "category": "鎮咳",
+      "switch_otc": false,
+      "products": [
+        "アネトンせき止め"
+      ]
+    },
+    {
+      "name": "美白・肝斑用",
+      "category": "ビタミン・肝斑",
+      "switch_otc": true,
+      "products": [
+        "トランシーノII",
+        "トランシーノホワイトCクリア",
+        "ハイチオールCホワイティア"
+      ]
+    },
+    {
+      "name": "ビタミン剤",
+      "category": "ビタミン",
+      "switch_otc": false,
+      "products": [
+        "チョコラBBプラス",
+        "アリナミンEXプラス"
+      ]
+    },
+    {
+      "name": "ブテナフィン / テルビナフィン",
+      "category": "水虫薬",
+      "switch_otc": true,
+      "products": [
+        "ブテナロックVα",
+        "ダマリンL"
+      ]
+    },
+    {
+      "name": "イソコナゾール / クロトリマゾール",
+      "category": "膣カンジダ再発治療",
+      "switch_otc": true,
+      "products": [
+        "メンソレータムフレディ",
+        "エンペシドL"
+      ]
+    },
+    {
+      "name": "カフェイン剤",
+      "category": "中枢神経用",
+      "switch_otc": false,
+      "products": [
+        "エスタロンモカ",
+        "エスカップ"
+      ]
+    },
+    {
+      "name": "口内炎",
+      "category": "口内炎・喉",
+      "switch_otc": false,
+      "products": [
+        "ペラックT錠",
+        "トラフル"
+      ]
+    }
+  ],
+
+  "exclude_keywords": [
+    "ルナ",
+    "キッズ",
+    "ジュニア",
+    "小児用",
+    "こども",
+    "子供",
+    "ベビー",
+    "幼児"
+  ],
+
+  "exclude_keyword_notes": "成人向けセルフメディケーション税制の対象外と判定するキーワード（誤判定回避用）。小児用医薬品は別途医療費控除（通常分）の対象です。"
+}
