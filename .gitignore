@@ -1,0 +1,23 @@
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.venv/
+venv/
+env/
+.env
+.idea/
+.vscode/
+*.egg-info/
+build/
+dist/
+releases/
+
+# Runtime output
+selfmed_result.xlsx
+*.log
+
+# Local input samples
+*.local.csv
+sample_input/
+test_output/

@@ -108,6 +108,9 @@ python main.py --input 注文履歴.csv --year 2025
 
 ## デモ
 
+<!-- docs/demo.gif に「購入履歴CSV選択 → 対象医薬品抽出 → selfmed_result.xlsx確認」までの30秒デモGIFを配置してください。 -->
+![Selfmed Tax Tool demo](docs/demo.gif)
+
 ### 実行結果
 
 ```
