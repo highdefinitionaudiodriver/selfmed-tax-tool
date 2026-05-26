@@ -438,6 +438,14 @@ selfmed-tax-tool/
 python -m pytest tests/ -v
 ```
 
+設定ファイルと対象品目マスタだけを軽く確認する場合:
+
+```bash
+python tools/check_setup.py
+```
+
+`OK site profiles` / `OK legacy medicine dictionary` / `OK structured OTC master` が揃えば、サイトプロファイルと医薬品マスタの最低限の整合性は取れています。
+
 | モジュール | テスト数 | カバー範囲 |
 |---|---|---|
 | `test_loader.py` | 12 | CSV読込 / カラムマッピング / 金額パース / 年度フィルタ / エラー系 |
