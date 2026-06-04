@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-06-04
+
 ### Added
 - 同梱サイトプロファイル（13 EC サイト分の JSON）整合性テストと loader 追加検証 `tests/test_site_profiles.py`。各プロファイルが有効 JSON で `columns` を持ち、必須内部カラム（order_date/product_name/unit_price）をマッピングしていることを検証（設定ドリフトの CI 検出）。さらに CSV 取り込みの金額記号・カンマ除去、seller 既定補完、必須カラム欠如エラー、パース失敗行除外、年フィルタをカバー（テスト 38→96）
 - README に「これは何？（30秒で）」「想定ユースケース・価格帯」セクションを追加
