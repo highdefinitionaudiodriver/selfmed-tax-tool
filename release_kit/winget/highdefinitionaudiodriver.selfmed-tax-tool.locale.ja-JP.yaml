@@ -1,0 +1,13 @@
+# yaml-language-server: $schema=https://aka.ms/winget-manifest.defaultLocale.1.6.0.schema.json
+PackageIdentifier: highdefinitionaudiodriver.selfmed-tax-tool
+PackageVersion: 0.2.0
+PackageLocale: ja-JP
+Publisher: highdefinitionaudiodriver
+PublisherUrl: https://github.com/highdefinitionaudiodriver
+PackageName: セルフメディケーション税制 集計ツール
+PackageUrl: https://github.com/highdefinitionaudiodriver/selfmed-tax-tool
+License: MIT
+ShortDescription: 通販サイトの購入履歴CSVから、確定申告に必要な<strong>対象医薬品だけ</strong>をExcelに抽出。<br/> Amazon・楽天などの市販薬を確定申告用に自動整理。完全オフライン動作で、購入データは一切外部に送信されません
+Moniker: selfmed-tax-tool
+ManifestType: defaultLocale
+ManifestVersion: 1.6.0
