@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- `--demo` オプション: 同梱サンプル（Amazon 注文履歴サンプル）で**指定なしに即実行**し、`demo_output/demo_result.xlsx` に集計結果を出力（「叩けば即結果」）。デモ実行テストを追加
+
 ## [0.2.0] - 2026-06-04
 
 ### Added

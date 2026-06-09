@@ -21,3 +21,4 @@ selfmed_result.xlsx
 *.local.csv
 sample_input/
 test_output/
+demo_output/

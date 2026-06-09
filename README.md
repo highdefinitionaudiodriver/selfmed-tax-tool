@@ -96,6 +96,10 @@ git clone https://github.com/highdefinitionaudiodriver/selfmed-tax-tool.git
 cd selfmed-tax-tool
 pip install -r requirements.txt
 
+# ★ まず動きを見たい人へ: 同梱サンプルで即実行（指定不要）
+python main.py --demo
+#   → demo_output/demo_result.xlsx に集計結果が出力されます
+
 # 2. 実行（Amazon CSVの例）
 python main.py --input 注文履歴.csv --year 2025
 

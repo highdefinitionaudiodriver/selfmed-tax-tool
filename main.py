@@ -80,6 +80,11 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="対応しているECサイト一覧を表示して終了",
     )
+    parser.add_argument(
+        "--demo",
+        action="store_true",
+        help="同梱サンプル（Amazon注文履歴サンプル）で即実行し demo_output/ に出力。指定不要",
+    )
     return parser
 
 
@@ -94,9 +99,24 @@ def main(args: list[str] | None = None) -> int:
             print(f"  {site_key:<20} {display_name}")
         return 0
 
+    # --- デモモード: 同梱サンプルで即実行（叩けば即結果） ---
+    if opts.demo:
+        demo_dir = PROJECT_ROOT / "demo_output"
+        demo_dir.mkdir(exist_ok=True)
+        if opts.input is None:
+            opts.input = PROJECT_ROOT / "tests" / "fixtures" / "amazon_sample.csv"
+        opts.site = "amazon"
+        if opts.output == Path("selfmed_result.xlsx"):
+            opts.output = demo_dir / "demo_result.xlsx"
+        print("=" * 60)
+        print("  デモモード: 同梱サンプルで即実行します")
+        print(f"  入力 : {opts.input}")
+        print(f"  出力 : {opts.output}")
+        print("=" * 60)
+
     # --- 入力ファイル必須チェック ---
     if opts.input is None:
-        parser.error("--input は必須です（--list-sites 以外の場合）")
+        parser.error("--input は必須です（--list-sites / --demo 以外の場合）")
 
     # --- 入力ファイルの存在チェック ---
     if not opts.input.exists():
